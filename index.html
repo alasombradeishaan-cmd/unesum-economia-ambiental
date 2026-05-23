@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Economía Ambiental | PI 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    :root{
+      --verde:#1b8f4d;
+      --verde2:#2bb673;
+      --verde3:#dff8ea;
+      --oscuro:#123524;
+      --blanco:#ffffff;
+      --gris:#f5f7f8;
+      --texto:#2d3436;
+      --sombra:0 10px 25px rgba(0,0,0,.1);
+      --radio:18px;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#f7fff9,#eef7f0);
+      color:var(--texto);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:500px;
+      height:500px;
+      background:rgba(43,182,115,.10);
+      border-radius:50%;
+      top:-200px;
+      right:-150px;
+      z-index:-1;
+      filter:blur(20px);
+      animation:float 8s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(20px)}
+    }
+
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:999;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(12px);
+      box-shadow:0 2px 12px rgba(0,0,0,.08);
+    }
+
+    .nav-container{
+      max-width:1300px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 30px;
+    }
+
+    .logo{
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--verde);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:var(--oscuro);
+      font-weight:500;
+      transition:.3s;
+    }
+
+    .nav-links a:hover{
+      color:var(--verde2);
+    }
+
+    header{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:120px 20px 80px;
+    }
+
+    .hero{
+      max-width:1200px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:3.5rem;
+      color:var(--oscuro);
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero-text p{
+      font-size:1.1rem;
+      line-height:1.8;
+      margin-bottom:25px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:15px;
+    }
+
+    .btn{
+      padding:15px 25px;
+      border:none;
+      border-radius:50px;
+      background:linear-gradient(135deg,var(--verde),var(--verde2));
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:.4s;
+      text-decoration:none;
+      box-shadow:var(--sombra);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px) scale(1.03);
+    }
+
+    .hero-image{
+      text-align:center;
+    }
+
+    .hero-image img{
+      width:100%;
+      max-width:500px;
+      border-radius:25px;
+      box-shadow:var(--sombra);
+    }
+
+    section{
+      padding:90px 20px;
+    }
+
+    .container{
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.7rem;
+      color:var(--oscuro);
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#666;
+      max-width:800px;
+      margin:auto;
+    }
+
+    .quick-grid,
+    .weeks-grid,
+    .resource-grid,
+    .cards-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      border-radius:var(--radio);
+      padding:25px;
+      box-shadow:var(--sombra);
+      transition:.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      width:100%;
+      height:5px;
+      background:linear-gradient(90deg,var(--verde),var(--verde2));
+      top:0;
+      left:0;
+    }
+
+    .card h3{
+      color:var(--verde);
+      margin-bottom:15px;
+    }
+
+    .week-card{
+      cursor:pointer;
+    }
+
+    .week-content{
+      display:none;
+      margin-top:20px;
+      animation:fade .5s ease;
+    }
+
+    @keyframes fade{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .week-content ul{
+      padding-left:20px;
+      margin:10px 0;
+    }
+
+    .week-content li{
+      margin:8px 0;
+    }
+
+    iframe{
+      width:100%;
+      height:300px;
+      border:none;
+      border-radius:15px;
+      margin-top:15px;
+    }
+
+    .quiz-box{
+      margin-top:20px;
+      background:var(--verde3);
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .quiz-box button{
+      margin-top:15px;
+      padding:10px 20px;
+      border:none;
+      border-radius:10px;
+      background:var(--verde);
+      color:white;
+      cursor:pointer;
+    }
+
+    .progress-bar{
+      width:100%;
+      background:#ddd;
+      border-radius:20px;
+      overflow:hidden;
+      height:20px;
+      margin-top:20px;
+    }
+
+    .progress{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg,var(--verde),var(--verde2));
+      transition:1s;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 15px;
+      border-radius:50px;
+      background:var(--verde3);
+      color:var(--verde);
+      margin-top:10px;
+      font-weight:600;
+    }
+
+    .tic-card i,
+    .resource-card i,
+    .week-card i{
+      font-size:2rem;
+      color:var(--verde);
+      margin-bottom:15px;
+    }
+
+    footer{
+      background:var(--oscuro);
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+      margin-top:60px;
+    }
+
+    footer p{
+      margin:10px 0;
+    }
+
+    .motivational{
+      background:linear-gradient(135deg,var(--verde),var(--verde2));
+      color:white;
+      padding:30px;
+      border-radius:25px;
+      text-align:center;
+      box-shadow:var(--sombra);
+      margin-bottom:60px;
+    }
+
+    .classroom-links a,
+    .telegram-links a{
+      display:block;
+      margin:10px 0;
+      text-decoration:none;
+      color:var(--verde);
+      font-weight:600;
+    }
+
+    .memory-game{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:15px;
+    }
+
+    .memory-card{
+      background:var(--verde);
+      color:white;
+      height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:.8rem;
+      text-align:center;
+      padding:5px;
+    }
+
+    @media(max-width:768px){
+      .hero-text h1{
+        font-size:2.4rem;
+      }
+
+      .nav-container{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      .nav-links{
+        justify-content:center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="logo"><i class="fa-solid fa-leaf"></i> Economía Ambiental PI 2026</div>
+    <div class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#semanas">Semanas</a>
+      <a href="#tic">TIC/TAC/TEC</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#classroom">Classroom</a>
+      <a href="#telegram">Telegram</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<header id="inicio">
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Plataforma Educativa de Economía Ambiental</h1>
+      <p>
+        Plataforma interactiva diseñada para estudiantes de 7mo B, 7mo C y 7mo D de la asignatura Economía Ambiental. Aquí encontrarás teoría, talleres, juegos educativos, videos, actividades de gamificación y recursos para fortalecer el aprendizaje autónomo.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#semanas" class="btn"><i class="fa-solid fa-book"></i> Ir a Semanas</a>
+        <a href="#classroom" class="btn"><i class="fa-brands fa-google"></i> Ir a Classroom</a>
+        <a href="#telegram" class="btn"><i class="fa-brands fa-telegram"></i> Ir a Telegram</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1200&auto=format&fit=crop" alt="Medio Ambiente">
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="motivational">
+      <h2>“La educación ambiental transforma conciencia en acción sostenible.”</h2>
+      <p>Dra. Betty Soledispa | PI 2026</p>
+    </div>
+  </div>
+</section>
+
+<section id="classroom">
+  <div class="container">
+    <div class="section-title">
+      <h2>Google Classroom</h2>
+      <p>Accede rápidamente a tu paralelo.</p>
+    </div>
+
+    <div class="cards-grid classroom-links">
+      <div class="card">
+        <h3>7B ECONOMÍA AMBIENTAL PI 2026</h3>
+        <a href="https://classroom.google.com/c/ODYzNzI2MTg3MTEw?cjc=7drfpl5i" target="_blank">Ingresar al Classroom</a>
+      </div>
+
+      <div class="card">
+        <h3>7C ECONOMÍA AMBIENTAL PI 2026</h3>
+        <a href="https://classroom.google.com/c/Nzk3NzM0NTczODg2?cjc=rcwbnlmq" target="_blank">Ingresar al Classroom</a>
+      </div>
+
+      <div class="card">
+        <h3>7D ECONOMÍA AMBIENTAL PI 2026</h3>
+        <a href="https://classroom.google.com/c/Nzk3NzM0NTQ0MTEz?cjc=wpkexc5x" target="_blank">Ingresar al Classroom</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="telegram">
+  <div class="container">
+    <div class="section-title">
+      <h2>Canales de Telegram</h2>
+      <p>Comunicación y avisos académicos.</p>
+    </div>
+
+    <div class="cards-grid telegram-links">
+      <div class="card">
+        <h3>2026 PI 7B Econ. Ambnt.</h3>
+        <a href="https://t.me/+_gK9S0lNE9U2OWUx" target="_blank">Entrar al canal</a>
+      </div>
+
+      <div class="card">
+        <h3>2026 PI 7C Econ. Ambnt.</h3>
+        <a href="https://t.me/+Dt1CcPtCHaBkNTc5" target="_blank">Entrar al canal</a>
+      </div>
+
+      <div class="card">
+        <h3>2026 PI 7D Econ. Ambnt.</h3>
+        <a href="https://t.me/+AdCRVEUrdu83OGIx" target="_blank">Entrar al canal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="semanas">
+  <div class="container">
+    <div class="section-title">
+      <h2>Organización Semanal</h2>
+      <p>Contenido académico interactivo basado en el syllabus de Economía Ambiental.</p>
+    </div>
+
+    <div class="weeks-grid" id="weeksContainer"></div>
+  </div>
+</section>
+
+<section id="tic">
+  <div class="container">
+    <div class="section-title">
+      <h2>TIC – TAC – TEC</h2>
+      <p>Integración tecnológica para fortalecer el aprendizaje significativo.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card tic-card">
+        <i class="fa-solid fa-laptop"></i>
+        <h3>TIC</h3>
+        <p>Tecnologías de la Información y Comunicación utilizadas para acceder, gestionar y compartir información ambiental.</p>
+      </div>
+
+      <div class="card tic-card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h3>TAC</h3>
+        <p>Tecnologías del Aprendizaje y el Conocimiento aplicadas al fortalecimiento del aprendizaje autónomo.</p>
+      </div>
+
+      <div class="card tic-card">
+        <i class="fa-solid fa-earth-americas"></i>
+        <h3>TEC</h3>
+        <p>Tecnologías para el Empoderamiento y la Participación enfocadas en sostenibilidad y ciudadanía ambiental.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="container">
+    <div class="section-title">
+      <h2>Recursos Académicos</h2>
+      <p>Materiales y recursos digitales para fortalecer el aprendizaje autónomo y colaborativo.</p>
+    </div>
+
+    <div class="resource-grid">
+      <div class="card resource-card">
+        <i class="fa-solid fa-folder-open"></i>
+        <h3>Material de apoyo para el aprendizaje</h3>
+        <p>Accede a materiales, documentos, lecturas y recursos complementarios de la asignatura.</p>
+        <br>
+        <a class="btn" href="https://drive.google.com/drive/folders/1zR9lSWkKakzrabo_gzct0P4b8Hu-yEgR?usp=drive_link" target="_blank">Abrir recursos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <h2>Economía Ambiental | PI 2026</h2>
+  <p>Universidad Estatal del Sur de Manabí</p>
+  <p>Dra. Betty Soledispa</p>
+  <p>Plataforma interactiva educativa desarrollada con HTML, CSS y JavaScript.</p>
+  <p><i class="fa-solid fa-leaf"></i> Educación para la sostenibilidad y el desarrollo responsable.</p>
+</footer>
+
+<script>
+  const weeks = [
+    {
+      title:'Semana 1',
+      topic:'Introducción a la Economía Ambiental',
+      video:'https://www.youtube.com/embed/4ZHvil5V1Zc',
+      definition:'La economía ambiental es una rama de la economía que estudia la relación entre las actividades humanas y el medio ambiente, analizando cómo utilizar los recursos naturales de manera sostenible.',
+      importance:'Permite comprender cómo las decisiones económicas impactan al planeta y cómo se pueden generar políticas para reducir daños ambientales.',
+      ecuador:'En Ecuador existen problemas como deforestación, contaminación hídrica y explotación de recursos naturales que hacen necesaria la aplicación de la economía ambiental.',
+      world:'A nivel mundial el cambio climático y la pérdida de biodiversidad son desafíos prioritarios para gobiernos y empresas.',
+      tic:'Uso de plataformas digitales para investigar problemáticas ambientales.',
+      tac:'Aprendizaje mediante videos interactivos, foros y actividades colaborativas.',
+      tec:'Participación estudiantil mediante propuestas sostenibles y trabajo comunitario.',
+      activities:['Quiz interactivo','Taller práctico','Foro de discusión','Mapa conceptual','Microensayo'],
+      pea:'Identificación de problemáticas ambientales de la comunidad y conformación de equipos.'
+    },
+    {
+      title:'Semana 2',
+      topic:'Recursos Naturales y Desarrollo',
+      video:'https://www.youtube.com/embed/8iYdJ4G4t0E',
+      definition:'Los recursos naturales son bienes proporcionados por la naturaleza y pueden ser renovables o no renovables.',
+      importance:'Son fundamentales para la economía, la producción y la calidad de vida.',
+      ecuador:'Ecuador depende económicamente de recursos como petróleo, agua, biodiversidad y agricultura.',
+      world:'La sobreexplotación de recursos naturales afecta la sostenibilidad global.',
+      tic:'Investigación digital sobre recursos renovables y no renovables.',
+      tac:'Uso de herramientas multimedia para clasificar recursos.',
+      tec:'Propuestas estudiantiles para conservación ambiental.',
+      activities:['Juego memoria','Análisis de casos','Cuestionario','Taller de clasificación'],
+      pea:'Análisis de recursos naturales de la provincia.'
+    },
+    {
+      title:'Semana 3',
+      topic:'Desarrollo Sostenible',
+      video:'https://www.youtube.com/embed/cFWwCpw8AQk',
+      definition:'El desarrollo sostenible busca satisfacer necesidades actuales sin comprometer las futuras generaciones.',
+      importance:'Integra economía, sociedad y ambiente para garantizar bienestar colectivo.',
+      ecuador:'Ecuador impulsa políticas relacionadas con sostenibilidad y conservación.',
+      world:'La ONU promueve los Objetivos de Desarrollo Sostenible.',
+      tic:'Uso de recursos web para investigar sostenibilidad.',
+      tac:'Aprendizaje basado en proyectos sostenibles.',
+      tec:'Acciones de participación comunitaria.',
+      activities:['Verdadero/Falso','Debate','Quiz','Estudio de caso'],
+      pea:'Diseño de propuestas sostenibles locales.'
+    }
+  ];
+
+  const container = document.getElementById('weeksContainer');
+
+  weeks.forEach((week,index)=>{
+    const card = document.createElement('div');
+    card.className = 'card week-card';
+
+    card.innerHTML = `
+      <i class="fa-solid fa-book-open"></i>
+      <h3>${week.title}</h3>
+      <p><strong>${week.topic}</strong></p>
+      <button class="btn" style="margin-top:15px;">Explorar Semana</button>
+
+      <div class="week-content" style="width:100%;padding-top:25px;">
+
+        <div class="card" style="margin-bottom:20px;background:#f9fff9;">
+          <h3>📘 Concepto y Definición</h3>
+          <p>${week.definition}</p>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>🌎 Importancia del Tema</h3>
+          <p>${week.importance}</p>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>🇪🇨 Relación con Ecuador</h3>
+          <p>${week.ecuador}</p>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>🌍 Situación Mundial</h3>
+          <p>${week.world}</p>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>💻 TIC - TAC - TEC</h3>
+          <ul>
+            <li><strong>TIC:</strong> ${week.tic}</li>
+            <li><strong>TAC:</strong> ${week.tac}</li>
+            <li><strong>TEC:</strong> ${week.tec}</li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>🧩 Actividades Académicas</h3>
+          <ul>
+            ${week.activities.map(act=>`<li>${act}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3>🚀 Proyecto en Aula</h3>
+          <p>${week.pea}</p>
+        </div>
+
+        <div class="quiz-box">
+          <h3>📝 Taller Interactivo</h3>
+          <p>Seleccione la respuesta correcta:</p>
+
+          <p><strong>¿Cuál es el objetivo principal de la economía ambiental?</strong></p>
+
+          <label><input type="radio" name="quiz${index}" value="a"> A. Incrementar la contaminación</label><br><br>
+          <label><input type="radio" name="quiz${index}" value="b"> B. Equilibrar economía y medio ambiente</label><br><br>
+          <label><input type="radio" name="quiz${index}" value="c"> C. Explotar recursos sin control</label><br><br>
+          <label><input type="radio" name="quiz${index}" value="d"> D. Eliminar políticas ambientales</label><br><br>
+
+          <button onclick="checkQuiz(${index})">Enviar respuesta</button>
+          <p id="result${index}"></p>
+        </div>
+
+        <div class="quiz-box">
+          <h3>🎮 Juego Verdadero o Falso</h3>
+          <p>El desarrollo sostenible busca proteger los recursos para futuras generaciones.</p>
+          <button onclick="vfCorrect(${index})">Verdadero</button>
+          <button onclick="vfWrong(${index})">Falso</button>
+          <p id="vf${index}"></p>
+        </div>
+
+        <div class="quiz-box">
+          <h3>🧠 Juego de Memoria Ambiental</h3>
+          <div class="memory-game">
+            <div class="memory-card">Reciclaje</div>
+            <div class="memory-card">Bosques</div>
+            <div class="memory-card">Agua</div>
+            <div class="memory-card">Energía</div>
+            <div class="memory-card">Clima</div>
+            <div class="memory-card">Sostenibilidad</div>
+            <div class="memory-card">Economía Verde</div>
+            <div class="memory-card">Biodiversidad</div>
+          </div>
+        </div>
+
+        <div class="quiz-box">
+          <h3>🏅 Sistema de Progreso</h3>
+          <div class="progress-bar">
+            <div class="progress" id="progress${index}"></div>
+          </div>
+          <br>
+          <button onclick="advance(${index})">Completar actividad</button>
+        </div>
+
+        <div class="quiz-box">
+          <h3>📚 Actividad de Análisis</h3>
+          <textarea style="width:100%;min-height:140px;padding:15px;border-radius:12px;border:1px solid #ccc;" placeholder="Escriba aquí su análisis sobre el tema..."></textarea>
+          <br><br>
+          <button>Guardar respuesta</button>
+        </div>
+
+        <div class="quiz-box">
+          <h3>🎥 Video Educativo en Español</h3>
+          <iframe src="${week.video}" allowfullscreen></iframe>
+        </div>
+
+        <div style="display:flex;gap:15px;flex-wrap:wrap;margin-top:25px;">
+          <button class="btn">📂 Descargar Taller</button>
+          <button class="btn">📝 Resolver Actividad</button>
+          <button class="btn">🎯 Realizar Evaluación</button>
+          <button class="btn">🏆 Obtener Insignia</button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click',e=>{
+      if(e.target.tagName !== 'BUTTON'){
+        const content = card.querySelector('.week-content');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      }
+    });
+
+    container.appendChild(card);
+  });
+
+  function checkQuiz(index){
+    const options = document.getElementsByName('quiz'+index);
+    let answer='';
+
+    options.forEach(opt=>{
+      if(opt.checked) answer=opt.value;
+    });
+
+    const result = document.getElementById('result'+index);
+
+    if(answer==='b'){
+      result.innerHTML='✅ ¡Correcto! Excelente trabajo.';
+      result.style.color='green';
+    }else{
+      result.innerHTML='❌ Incorrecto. Revisa la teoría nuevamente.';
+      result.style.color='red';
+    }
+  }
+
+  function vfCorrect(index){
+    const result = document.getElementById('vf'+index);
+    result.innerHTML='✅ ¡Correcto! Has ganado puntos.';
+    result.style.color='green';
+  }
+
+  function vfWrong(index){
+    const result = document.getElementById('vf'+index);
+    result.innerHTML='❌ Incorrecto. Revisa la teoría nuevamente.';
+    result.style.color='red';
+  }
+
+  function advance(index){
+    const progress = document.getElementById('progress'+index);
+    let width = parseInt(progress.style.width) || 0;
+
+    if(width < 100){
+      width += 25;
+      progress.style.width = width + '%';
+    }
+
+    if(width >= 100){
+      alert('🏆 ¡Has completado la semana y ganado una insignia!');
+    }
+  }
+</script>
+
+</body>
+</html>
